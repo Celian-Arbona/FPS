@@ -2,6 +2,8 @@ package com.jad.juniafps;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,15 +27,35 @@ public class GameWindow extends JFrame {
         this.setLayout(new BorderLayout());
         this.textArea.setFont(font);
         this.textArea.setEditable(false);
-        this.setBackground(Color.BLACK);
-        this.setForeground(Color.GREEN);
+        this.textArea.setBackground(Color.WHITE);
+        this.textArea.setForeground(Color.BLACK);
         final JPanel panel = new JPanel();
         this.add(panel, BorderLayout.CENTER);
         panel.add(this.textArea);
+        this.textArea.addMouseMotionListener(new MouseMotionHandler());
         this.setVisible(true);
     }
 
     public void display(final String text) {
         this.textArea.setText(text);
+    }
+
+    private class MouseMotionHandler implements MouseMotionListener {
+        private int lastX;
+
+
+        @Override
+        public void mouseDragged(final MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseMoved(final MouseEvent mouseEvent) {
+            final int newX = mouseEvent.getX();
+            if (newX < this.lastX) ActionPlayer.TURN_LEFT.turnOn();
+            if (newX > this.lastX) ActionPlayer.TURN_RIGHT.turnOn();
+            this.lastX = newX;
+
+        }
     }
 }
