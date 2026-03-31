@@ -9,6 +9,6 @@ public class Main {
     public static void main(String[] args) {
         Map map = new Map("map_zebi.bmp");
         Renderer renderer = new Renderer();
-        System.out.println(renderer.render(new Point(306, 356), 45, map));
+        System.out.println((renderer.render(new Point(320, 256), 45, map)));
     }
 }
